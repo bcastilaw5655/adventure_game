@@ -29,7 +29,7 @@ def start(player):
     print(
         f'"Repeat my words, and I shall let you pass."\n"A charred heart of black boar and a side of raw donkey meat."')
     input()
-    time.sleep(3)
+    time.sleep(0)
     print("'Nope. That's not what I said.'")
     time.sleep(0)
     print(f'"Prepare for death at the hands of {c.red}DENNIS THE DECIMATOR{c.end}!"')

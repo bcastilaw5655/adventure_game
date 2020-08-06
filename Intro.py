@@ -66,7 +66,7 @@ def start(player):
     print(
         f"Although he enjoyed his life, {player.name} decided to venture out of Oakvale in hopes of finding something new and exciting.")
     time.sleep(0)
-    print(f"Knowing that this journey might be full of peril, he grabbed a {c.cyan}{player.equip['label']}{c.end} and {c.blue}{player.inventory['hpotion']['count']} {player.inventory['hpotion']['info']['label']}s{c.end}. He placed them in his satchel.")
+    print(f"Knowing that this journey might be full of peril, he grabbed a {c.cyan}{player.equip['label']}{c.end} and {c.blue}{player.inventory['items']['health potion']['count']} {player.inventory['items']['health potion']['info']['label']}s{c.end}. He placed them in his satchel.")
     playsound('./sounds/swordequip.wav')
     time.sleep(0)
     print("I forget. Did the hero travel east or west?")

@@ -1,7 +1,7 @@
 import time, importlib, random
 weapon = importlib.import_module('Weapons')
 enemies = importlib.import_module('Enemies')
-items = importlib.import_module('Inventory')
+items = importlib.import_module('Items')
 enemy = enemies.ravager
 from Color import Color as c
 from colorama import init

@@ -1,6 +1,6 @@
 import importlib
 w = importlib.import_module('Weapons')
-i = importlib.import_module('Inventory')
+i = importlib.import_module('Items')
 
 class Player:
     def __init__(self):
@@ -13,11 +13,13 @@ class Player:
         self.race = None
         self.gold = 0
         self.languages = ['common']
-        self.equip = w.steelWarhammer
+        self.equip = w.rustyDagger
         self.inventory = {
-            'hpotion': {'info': i.healthPotion, 'count': 3},
-            'h2potion': {'info': i.hiPotion, 'count': 0},
-            'weapons': [w.rustyDagger]
+            'weapons': [w.rustyDagger],
+            'items': {
+                'health potion': {'info': i.healthPotion, 'count': 3},
+                'hi-potion': {'info': i.hiPotion, 'count': 1}
+            }
             }
 
     def setName(self, first, last):
@@ -48,3 +50,17 @@ class Player:
             print(f"You equipped the {self.equip['label']}.")
         else:
             print("That weapon is not in your inventory.")
+
+    def useItem(self):
+        print("You currently carry:")
+        d = self.inventory['items']
+        for key, value in d.items():
+            i = key.title()
+            for _key, _value in value.items():
+                if 'count' in _key and _value >= 1:
+                    print(f"\t{_value} {i}")
+
+
+            #print(item, count)
+            #print(f"\t{item}{count}".title())
+

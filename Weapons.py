@@ -2,22 +2,24 @@ class Weapon:
     class Iron:
         modifier = 2
         condition = 'iron'
-        def __init__(self, damage, type):
+        def __init__(self, name, damage, type):
+            self.name = name
             self.damage = damage
             self.type = type
-
 
     class Rusty:
         modifier = -2
         condition = 'rusty'
-        def __init__(self, damage, type):
+        def __init__(self, name, damage, type):
+            self.name = name
             self.damage = damage
             self.type = type
 
     class Steel:
         modifier = 4
         condition = 'steel'
-        def __init__(self, damage, type):
+        def __init__(self, name, damage, type):
+            self.name = name
             self.damage = damage
             self.type = type
 
@@ -30,127 +32,38 @@ class Weapon:
 
 # Weapons
 # Rusty
-rustyLongsword = {
-    "info": Weapon.Rusty(6,'slashing'),
-    "label": 'rusty longsword'
-}
-rustyGreataxe = {
-    "info": Weapon.Rusty(8, 'slashing'),
-    "label": 'rusty greataxe'
-}
-rustyDagger = {
-    "info": Weapon.Rusty(3, 'slashing'),
-    "label": 'rusty dagger'
-}
-rustyAxe = {
-    "info": Weapon.Rusty(4, 'slashing'),
-    "label": 'rusty axe'
-}
-rustyLance = {
-    "info": Weapon.Rusty(8, 'piercing'),
-    "label": 'rusty lance'
-}
-rustySpear = {
-    "info": Weapon.Rusty(8, 'piercing'),
-    "label": 'rusty spear'
-}
-rustyMace = {
-    "info": Weapon.Rusty(6, 'blunt'),
-    "label": 'rusty mace'
-}
-rustyWarhammer = {
-    "info": Weapon.Rusty(10, 'blunt'),
-    "label": 'rusty warhammer'
-}
-rustyKatana = {
-    "info": Weapon.Rusty(6,'slashing'),
-    "label": 'rusty katana'
-}
-
-
+rustyLongsword = Weapon.Rusty('rusty longsword', 8,'slashing')
+rustyGreataxe = Weapon.Rusty('rusty greataxe', 12, 'slashing')
+rustyDagger = Weapon.Rusty('rusty dagger', 4, 'slashing')
+rustyAxe = Weapon.Rusty('rusty axe', 8, 'slashing')
+rustyLance = Weapon.Rusty('rusty lance', 12, 'piercing')
+rustySpear = Weapon.Rusty('rusty spear', 6, 'piercing')
+rustyMace = Weapon.Rusty('rusty mace', 6, 'blunt')
+rustyWarhammer = Weapon.Rusty('rusty warhammer', 8, 'blunt')
+rustyKatana = Weapon.Rusty('rusty katana', 8,'slashing')
 
 # Iron
-ironLongsword = {
-    "info": Weapon.Iron(6,'slashing'),
-    "label": 'iron longsword'
-}
-ironGreataxe = {
-    "info": Weapon.Iron(8, 'slashing'),
-    "label": 'iron greataxe'
-}
-ironDagger = {
-    "info": Weapon.Iron(3, 'slashing'),
-    "label": 'iron dagger'
-}
-ironAxe = {
-    "info": Weapon.Iron(4, 'slashing'),
-    "label": 'iron axe'
-}
-ironLance = {
-    "info": Weapon.Iron(8, 'piercing'),
-    "label": 'iron lance'
-}
-ironSpear = {
-    "info": Weapon.Iron(8, 'piercing'),
-    "label": 'iron spear'
-}
-ironMace = {
-    "info": Weapon.Iron(6, 'blunt'),
-    "label": 'iron mace'
-}
-ironWarhammer = {
-    "info": Weapon.Iron(10, 'blunt'),
-    "label": 'iron warhammer'
-}
-ironKatana = {
-    "info": Weapon.Iron(6,'slashing'),
-    "label": 'iron katana'
-}
+ironLongsword = Weapon.Iron('iron longsword', 8,'slashing')
+ironGreataxe = Weapon.Iron('iron greataxe', 12, 'slashing')
+ironDagger = Weapon.Iron('iron dagger', 4, 'slashing')
+ironAxe = Weapon.Iron('iron axe', 8, 'slashing')
+ironLance = Weapon.Iron('iron lance', 12, 'piercing')
+ironSpear = Weapon.Iron('iron spear', 6, 'piercing')
+ironMace = Weapon.Iron('iron mace', 6, 'blunt')
+ironWarhammer = Weapon.Iron('iron warhammer', 8, 'blunt')
+ironKatana = Weapon.Iron('iron katana', 8,'slashing')
 
 # Steel
-steelLongsword = {
-    "info": Weapon.Steel(6,'slashing'),
-    "label": 'steel longsword'
-}
-steelGreataxe = {
-    "info": Weapon.Steel(8, 'slashing'),
-    "label": 'steel greataxe'
-}
-steelDagger = {
-    "info": Weapon.Steel(3, 'slashing'),
-    "label": 'steel dagger'
-}
-steelAxe = {
-    "info": Weapon.Steel(4, 'slashing'),
-    "label": 'steel axe'
-}
-steelLance = {
-    "info": Weapon.Steel(8, 'piercing'),
-    "label": 'steel lance'
-}
-steelSpear = {
-    "info": Weapon.Steel(8, 'piercing'),
-    "label": 'steel spear'
-}
-steelMace = {
-    "info": Weapon.Steel(6, 'blunt'),
-    "label": 'steel mace'
-}
-steelWarhammer = {
-    "info": Weapon.Steel(10, 'blunt'),
-    "label": 'steel warhammer'
-}
-steelKatana = {
-    "info": Weapon.Steel(6,'slashing'),
-    "label": 'steel katana'
-}
+steelLongsword = Weapon.Steel('steel longsword', 8,'slashing')
+steelGreataxe = Weapon.Steel('steel greataxe', 12, 'slashing')
+steelDagger = Weapon.Steel('steel dagger', 4, 'slashing')
+steelAxe = Weapon.Steel('steel axe', 8, 'slashing')
+steelLance = Weapon.Steel('steel lance', 12, 'piercing')
+steelSpear = Weapon.Steel('steel spear', 6, 'piercing')
+steelMace = Weapon.Steel('steel mace', 6, 'blunt')
+steelWarhammer = Weapon.Steel('steel warhammer', 8, 'blunt')
+steelKatana = Weapon.Steel('steel katana', 8,'slashing')
 
 # Legendary
-yuckyTucky = {
-    "info": Weapon.Iron(8, 'slashing'),
-    "label": 'Axe of Yucky Tucky'
-}
-dragoonKatana = {
-    "info": Weapon.Steel(6,'slashing'),
-    "label": 'Dragoon Katana'
-}
+yuckyTucky = Weapon.Iron('The Axe of Yucky Tucky', 8, 'slashing')
+dragoonKatana = Weapon.Steel("The Dragoon Katana", 6,'slashing')

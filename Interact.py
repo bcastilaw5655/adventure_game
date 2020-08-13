@@ -1,6 +1,8 @@
 import random, time, sys, importlib
 from playsound import playsound
+
 items = importlib.import_module('Items')
+
 
 class encounter:
 
@@ -18,157 +20,148 @@ class encounter:
             choice = str.lower(input())
             # ATTACK
             if choice == 'attack':
-                print(f"{self.player.name} attacked with his {self.player.equip['label']}!")
-                playerAttack = random.randint(1,100)
+                print(f"{self.player.name} attacked with his {self.player.equip.name}!")
+                playerAttack = random.randint(1, 100)
                 if playerAttack >= 20:
-                    attack = (random.randint(1, self.player.equip['info'].damage) + self.player.equip['info'].modifier)
-                    if attack <=0 :
+                    attack = (random.randint(1, self.player.equip.damage) + self.player.equip.modifier)
+                    if attack <= 0:
                         attack = 1
-                    time.sleep(0)
-                    print(f"He sliced the {self.enemy['label']} for {attack} damage!")
-                    self.enemy['info'].health = self.enemy['info'].health - attack
+
+                    print(f"He sliced the {self.enemy.name} for {attack} damage!")
+                    self.enemy.health = self.enemy.health - attack
                     break
                 elif playerAttack <= 19:
-                    time.sleep(0)
-                    print("He swang wide, missing the enemy.")
+
+                    print("He swung wide, missing the enemy.")
                     break
             # BLOCK
             elif choice == 'block':
                 self.block = True
-                time.sleep(0)
+
                 print(f"{self.player.name} assumed a defensive stance...")
                 break
             # RUN
             elif choice == 'run':
-                time.sleep(0)
+
                 print(f"{self.player.name} tried to escape.")
-                run = random.randint(1,100)
+                run = random.randint(1, 100)
                 if run >= 80:
-                    time.sleep(0)
+
                     print("He ran away!")
                     self.escape = True
                     break
                 else:
-                    time.sleep(0)
+
                     print("Unfortunately, he was frozen in his tracks!")
                     break
             # EQUIP
             elif choice == 'equip':
-                time.sleep(0)
+
                 self.player.equipWeapon()
                 continue
             # POTION (EVENTUALLY OPEN INVENTORY)
             elif choice == 'use item':
-                self.player.useItem()
+                items.useItem(self.player)
             # SCAN
             elif choice == 'scan':
-                time.sleep(0)
-                print(f"{self.player.name} focused his mind. He currently had {self.player.health} heath. His max health is {self.player.maxHealth}. {self.enemy['label']} had {self.enemy['info'].health} health.")
-                time.sleep(0)
+
+                print(
+                    f"{self.player.name} focused his mind. He currently had {self.player.health} heath. His max health is {self.player.maxHealth}. He currently had {self.player.mana} mana. {self.enemy.name} had {self.enemy.health} health.")
+
                 continue
             elif choice == 'quit':
                 sys.exit(0)
             else:
-                time.sleep(0)
+
                 print("Invalid input.")
                 continue
 
     def enemyTurn(self):
-        while self.enemy['info'].health >=1:
+        while self.enemy.health >= 1:
             if self.escape:
                 break
             if self.player.health <= 0:
                 break
-            if self.enemy['info'].health <= 10 and self.enemy['info'].potion >= 1:
-                time.sleep(0)
-                print(random.choice(self.enemy['healtext']))
-                self.enemy['info'].health = self.enemy['info'].health + 5
-                if self.enemy['info'].health > self.enemy['info'].maxHealth:
-                    self.enemy['info'].health = self.enemy['info'].maxHealth
-                self.enemy['info'].potion = self.enemy['info'].potion - 1
-                time.sleep(0)
+            if self.enemy.health <= 10 and self.enemy.potion >= 1:
+
+                print(random.choice(self.enemy.healtext))
+                self.enemy.health = self.enemy.health + 5
+                if self.enemy.health > self.enemy.maxHealth:
+                    self.enemy.health = self.enemy.maxHealth
+                self.enemy.potion = self.enemy.potion - 1
+
                 break
             else:
-                enemyAttack = random.randint(1,100)
+                enemyAttack = random.randint(1, 100)
                 if enemyAttack >= 31:
-                    attack = random.randint(1, self.enemy['info'].equip['info'].damage + self.enemy['info'].equip['info'].modifier)
+                    attack = random.randint(1, self.enemy.equip.damage + self.enemy.equip.modifier)
                     if attack <= 0:
                         attack = 1
-                    time.sleep(0)
-                    print(f"{self.enemy['label']} attacked with his {self.enemy['info'].equip['label']}!")
+
+                    print(f"{self.enemy.name} attacked with his {self.enemy.equip.name}!")
                     if self.block:
-                        playerBlock = random.randint(1,100)
+                        playerBlock = random.randint(1, 100)
                         if playerBlock >= 51:
-                            time.sleep(0)
-                            blockedAttack = int(attack/2)
+                            blockedAttack = int(attack / 2)
                             self.player.health = self.player.health - blockedAttack
-                            print(f"{self.player.name} put up his {self.player.equip['label']} to block that attack. It weakened the blow, only allowing {blockedAttack} to pass through.")
-                            time.sleep(0)
+                            print(
+                                f"{self.player.name} put up his {self.player.equip.name} to block that attack. It weakened the blow, only allowing {blockedAttack} to pass through.")
+
                             break
                         if playerBlock <= 50:
-                            time.sleep(0)
-                            print(f"Unfortunately, the {self.enemy['label']} was too strong and he forced through the hero's block. He did {attack} damage.")
+                            print(
+                                f"Unfortunately, the {self.enemy.name} was too strong and he forced through the hero's block. He did {attack} damage.")
                             self.player.health = self.player.health - attack
                             break
                     if not self.block:
-                        time.sleep(0)
                         print(f"He hit {self.player.name} for {attack} damage!")
-                        time.sleep(0)
+
                         self.player.health = self.player.health - attack
                         break
                 elif enemyAttack <= 30:
-                    time.sleep(0)
-                    print(f"{self.enemy['label']}'s {self.enemy['info'].equip['label']} swept over the hero's head, barely missing.")
-                    time.sleep(0)
+
+                    print(f"{self.enemy.name}'s {self.enemy.equip.name} swept over the hero's head, barely missing.")
+
                     break
 
     def battleCheck(self):
         if self.escape:
-            time.sleep(0)
+
             print(f"{self.player.name} barely evaded death. He escaped to safety.")
-            playsound('./sounds/runaway.wav')
-        elif self.enemy['info'].health <= 0:
-            time.sleep(0)
-            print(self.enemy['deathtext'])
-            playsound('./sounds/victory.wav')
+        elif self.enemy.health <= 0:
+
+            print(self.enemy.deathtext)
         elif self.player.health <= 0:
-            time.sleep(0)
+
             print(f"{self.player.name} let out one final breath, collapsing to the ground.")
-            playsound('./sounds/playerdeath.wav')
 
     def lootBody(self):
         if self.player.health >= 1 and self.escape == False:
-            print(f"{self.player.name} searched {self.enemy['label']}'s body.")
-            treasure = random.randint(1,4)
+            print(f"{self.player.name} searched {self.enemy.name}'s body.")
+            treasure = random.randint(1, 4)
             if treasure == 1:
-                print(f"He found 1 {self.enemy['info'].loot['label']}.")
+                print(f"He found 1 {self.enemy.loot.name}.")
             if treasure == 2:
-                lootNumber = random.randint(1,2)
+                lootNumber = random.randint(1, 2)
                 lootItem = random.choice(items.common)
                 if lootNumber == 1:
-                    print(f"He found 1 {self.enemy['info'].loot['label']} and 1 {lootItem}.")
+                    print(f"He found 1 {self.enemy.loot.name} and 1 {lootItem.name}.")
                 if lootNumber == 2:
-                    print(f"He found 1 {self.enemy['info'].loot['label']} and 2 {lootItem}s.")
+                    print(f"He found 1 {self.enemy.loot.name} and 2 {lootItem.name}s.")
             if treasure == 3:
-                lootGold = random.randint(1,20)
-                print(f"He found 1 {self.enemy['info'].loot['label']} and {lootGold} gold.")
+                lootGold = random.randint(1, 20)
+                print(f"He found 1 {self.enemy.loot.name} and {lootGold} gold.")
             if treasure == 4:
-                print(f"He found 1 {self.enemy['info'].loot['label']}.")
+                print(f"He found 1 {self.enemy.loot.name}.")
                 print("A glint of something shiny caught his eye...")
-                print(f"{self.player.name} found {str.upper(self.enemy['info'].rareloot['label'])}.")
+                print(f"{self.player.name} found {str.upper(self.enemy.rareloot.name)}.")
 
-
-        #treasure = random.randint(1, 5)
-        #if treasure == 1:
-
+        # treasure = random.randint(1, 5)
+        # if treasure == 1:
 
     def startBattle(self):
-        while self.enemy['info'].health >=1 and self.player.health >= 1 and self.escape == False:
+        while self.enemy.health >= 1 and self.player.health >= 1 and self.escape == False:
             self.playerTurn()
             self.enemyTurn()
             self.battleCheck()
         self.lootBody()
-
-
-
-

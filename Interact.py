@@ -13,8 +13,31 @@ class encounter:
         self.block = False
         self.battleOver = False
 
+    def useItem(self):
+        print(f"{self.player.name} currently carried:")
+        d = self.player.inventory['items']
+        for item in d:
+            itemName = item.name
+            if item.pCount >= 1:
+                print(f"\t{item.pCount} {itemName}")
+        print("Which item did he use?")
+        selectedItem = str.lower(input())
+
+        isInInventory = False
+        thisItem = None
+        for item in d:
+            if item.name == selectedItem:
+                isInInventory = True
+                thisItem = item
+
+        if isInInventory:
+            self.player.counts[thisItem.playerCount]['current'] += thisItem.value
+            if self.player.counts[thisItem.playerCount]['current'] > self.player.counts[thisItem.playerCount]['max']:
+                self.player.counts[thisItem.playerCount]['current'] = self.player.counts[thisItem.playerCount]['max']
+            thisItem.pCount -= 1
+
     def playerTurn(self):
-        while self.player.health >= 1:
+        while self.player.counts['health']['current'] >= 1:
             self.block = False
             print(f"What did {self.player.name} do? (attack, block, run, equip, use item, scan, quit)")
             choice = str.lower(input())
@@ -61,12 +84,13 @@ class encounter:
                 continue
             # POTION (EVENTUALLY OPEN INVENTORY)
             elif choice == 'use item':
-                items.useItem(self.player)
+                self.useItem()
+                #items.useItem(self.player)
             # SCAN
             elif choice == 'scan':
 
                 print(
-                    f"{self.player.name} focused his mind. He currently had {self.player.health} heath. His max health is {self.player.maxHealth}. He currently had {self.player.mana} mana. {self.enemy.name} had {self.enemy.health} health.")
+                    f"{self.player.name} focused his mind. He currently had {self.player.counts['health']['current']} heath. His max health is {self.player.counts['health']['max']}. He currently had {self.player.counts['mana']['current']} mana. {self.enemy.name} had {self.enemy.health} health.")
 
                 continue
             elif choice == 'quit':
@@ -80,7 +104,7 @@ class encounter:
         while self.enemy.health >= 1:
             if self.escape:
                 break
-            if self.player.health <= 0:
+            if self.player.counts['health']['current'] <= 0:
                 break
             if self.enemy.health <= 10 and self.enemy.potion >= 1:
 
@@ -103,7 +127,7 @@ class encounter:
                         playerBlock = random.randint(1, 100)
                         if playerBlock >= 51:
                             blockedAttack = int(attack / 2)
-                            self.player.health = self.player.health - blockedAttack
+                            self.player.counts['health']['current'] = self.player.counts['health']['current'] - blockedAttack
                             print(
                                 f"{self.player.name} put up his {self.player.equip.name} to block that attack. It weakened the blow, only allowing {blockedAttack} to pass through.")
 
@@ -111,12 +135,12 @@ class encounter:
                         if playerBlock <= 50:
                             print(
                                 f"Unfortunately, the {self.enemy.name} was too strong and he forced through the hero's block. He did {attack} damage.")
-                            self.player.health = self.player.health - attack
+                            self.player.counts['health']['current'] = self.player.counts['health']['current'] - attack
                             break
                     if not self.block:
                         print(f"He hit {self.player.name} for {attack} damage!")
 
-                        self.player.health = self.player.health - attack
+                        self.player.counts['health']['current'] = self.player.counts['health']['current'] - attack
                         break
                 elif enemyAttack <= 30:
 
@@ -131,12 +155,12 @@ class encounter:
         elif self.enemy.health <= 0:
 
             print(self.enemy.deathtext)
-        elif self.player.health <= 0:
+        elif self.player.counts['health']['current'] <= 0:
 
             print(f"{self.player.name} let out one final breath, collapsing to the ground.")
 
     def lootBody(self):
-        if self.player.health >= 1 and self.escape == False:
+        if self.player.counts['health']['current'] >= 1 and self.escape == False:
             print(f"{self.player.name} searched {self.enemy.name}'s body.")
             treasure = random.randint(1, 4)
             if treasure == 1:
@@ -160,7 +184,7 @@ class encounter:
         # if treasure == 1:
 
     def startBattle(self):
-        while self.enemy.health >= 1 and self.player.health >= 1 and self.escape == False:
+        while self.enemy.health >= 1 and self.player.counts['health']['current'] >= 1 and self.escape == False:
             self.playerTurn()
             self.enemyTurn()
             self.battleCheck()

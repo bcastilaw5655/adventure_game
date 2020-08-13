@@ -7,10 +7,20 @@ class Player:
     def __init__(self):
         self.name = None
         self.lastName = None
-        self.health = 30
-        self.maxHealth = 30
-        self.mana = 0
-        self.maxMana = 0
+        self.counts = {
+            'health': {
+                'current': 30,
+                'max': 30
+            },
+            'mana': {
+                'current': 0,
+                'max': 0
+            }
+        }
+        #self.health = 30
+        #self.maxHealth = 30
+        #self.mana = 0
+        #self.maxMana = 0
         self.age = None
         self.Class = None
         self.race = r.human
@@ -59,6 +69,7 @@ class Player:
             print(f"You equipped the {self.equip.name}.")
         else:
             print("That weapon is not in your inventory.")
+
 
 
 

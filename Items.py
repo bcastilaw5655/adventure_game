@@ -5,6 +5,7 @@ class Item:
             self.value = value
             self.sell = sell
             self.pCount = pCount
+            self.playerCount = 'health'
 
         target = 'h'
 
@@ -14,6 +15,7 @@ class Item:
             self.value = value
             self.sell = sell
             self.pCount = pCount
+            self.playerCount = 'mana'
 
         target = 'm'
 
@@ -23,29 +25,30 @@ class Item:
             self.sell = sell
             self.pCount = pCount
 
-def useItem(self):
-    print(f"{player.name} currently carried:")
-    d = player.inventory['items']
-    for item in d:
-        itemName = item.title()
-        if item.pCount >= 1:
-            print(f"\t{item.pCount} {itemName}")
-    print("Which item did he use?")
-    selectedItem = str.lower(input())
 
-    isInInventory = False
-    thisItem = None
-    for item in d:
-        if item.name == selectedItem:
-            isInInventory = True
-            thisItem = item
-
-    if isInInventory:
-        if self.target == 'h':
-            player.health += self.value
-        if self.target == 'm':
-            player.mana += self.value
-        self.pCount =+ -1
+# def useItem(self):
+#     print(f"{player.name} currently carried:")
+#     d = player.inventory['items']
+#     for item in d:
+#         itemName = item.title()
+#         if item.pCount >= 1:
+#             print(f"\t{item.pCount} {itemName}")
+#     print("Which item did he use?")
+#     selectedItem = str.lower(input())
+#
+#     isInInventory = False
+#     thisItem = None
+#     for item in d:
+#         if item.name == selectedItem:
+#             isInInventory = True
+#             thisItem = item
+#
+#     if isInInventory:
+#         if self.target == 'h':
+#             player.health += self.value
+#         if self.target == 'm':
+#             player.mana += self.value
+#         self.pCount =+ -1
 
 
 
